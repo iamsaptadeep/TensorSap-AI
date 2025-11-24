@@ -39,7 +39,7 @@ export type AnalyzeAndVisualizeInput = z.infer<typeof AnalyzeAndVisualizeInputSc
 const AnalyzeAndVisualizeOutputSchema = z.object({
   analysisResults: z
     .string()
-    .describe('A structured summary of the key insights and interpretations from the analysis.'),
+    .describe('A structured, short, and to-the-point summary of the key insights and interpretations from the analysis.'),
   visualization: z.string().describe('A textual description of the visualization which includes the chart type (scatter plot, bar chart, or line chart) and a summary of what insights it conveys.'),
 });
 
@@ -62,18 +62,19 @@ You have the following information:
 - Analysis Type: {{{analysisType}}}
 - Preprocessing Steps: {{{preprocessingSteps}}}
 
-Perform the analysis and then provide the output in two parts:
+Perform the analysis and then provide the output in two parts. Keep the text short and to the point.
 
-1.  **Analysis Results**: A structured summary of what can be interpreted from the analysis. Use markdown headings and bullet points for clarity. Structure it with the following sections:
-    - **Key Findings**: What are the most important takeaways?
-    - **Model Performance**: How well did the model perform (if applicable)?
-    - **Insights**: What business or practical insights can be derived from the results?
+1.  **Analysis Results**: A structured, concise summary of what can be interpreted from the analysis. Use markdown headings and bullet points.
+    - **Key Findings**: 1-2 most important takeaways.
+    - **Model Performance**: A brief note on model performance (if applicable).
+    - **Insights**: 1-2 actionable business or practical insights.
 
 2.  **Visualization**: Based on the analysis type, describe the most appropriate chart.
     - If 'Regression', use a 'scatter plot'.
     - If 'Classification', use a 'bar chart' (e.g., for feature importance).
-    - If 'Clustering' or time-series, a 'line chart' might be appropriate.
-    - Your description should state the chart type and what it represents. For example: "A bar chart showing the relative importance of each feature in the classification model."`, 
+    - If 'Clustering', use a 'scatter plot' to show the data clusters.
+    - If time-series, a 'line chart' might be appropriate.
+    - Your description should state the chart type and what it represents. For example: "A scatter plot showing the identified customer clusters."`, 
 });
 
 const analyzeAndVisualizeFlow = ai.defineFlow(

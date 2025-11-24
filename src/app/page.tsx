@@ -124,7 +124,14 @@ export default function Home() {
 
       // --- Final Analysis & Visualization ---
       setStepLoading(5, true);
-      const vizType = selectedAnalysis === 'Regression' ? 'scatter plot' : selectedAnalysis === 'Classification' ? 'bar chart' : 'line chart';
+      
+      let vizType = 'line chart'; // Default
+      if (selectedAnalysis === 'Regression' || selectedAnalysis === 'Clustering') {
+        vizType = 'scatter plot';
+      } else if (selectedAnalysis === 'Classification') {
+        vizType = 'bar chart';
+      }
+
       const finalResult = await analyzeAndVisualize({ 
         datasetDescription: "User uploaded CSV",
         analysisType: selectedAnalysis,
