@@ -12,12 +12,12 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const HandleMissingDataInputSchema = z.object({
-  dataset: z.string().describe('The dataset to be cleaned, in CSV or Excel format.'),
+  dataset: z.string().describe('A sample of the dataset to be cleaned, in CSV or similar text-based format.'),
 });
 export type HandleMissingDataInput = z.infer<typeof HandleMissingDataInputSchema>;
 
 const HandleMissingDataOutputSchema = z.object({
-  cleanedDataset: z.string().describe('The dataset with missing values imputed.'),
+  cleanedDataset: z.string().describe('A summary of what a cleaned dataset with imputed values would look like.'),
   report: z.string().describe('A report summarizing the missing data imputation process and the techniques used.'),
 });
 export type HandleMissingDataOutput = z.infer<typeof HandleMissingDataOutputSchema>;
@@ -32,16 +32,16 @@ const prompt = ai.definePrompt({
   output: {schema: HandleMissingDataOutputSchema},
   prompt: `You are an expert data scientist specializing in data cleaning and preprocessing.
 
-You will receive a dataset, and your task is to identify and handle any missing values.
+You will receive a sample of a dataset. Your task is to identify columns with missing values and suggest appropriate imputation techniques for each.
 
-Consider the data types of each column and use appropriate imputation techniques such as mean, median, mode, or more advanced methods like regression imputation.
+Consider the data types of each column (numerical, categorical) and use that to inform your choice of imputation (e.g., mean, median, mode for numerical; mode or a new category for categorical).
 
-Generate a cleaned dataset with missing values imputed and a report summarizing the imputation process.
+Based on your analysis, generate:
+1.  A report summarizing the columns with missing data and the imputation techniques you suggest for each.
+2.  A brief, textual description of what the dataset would look like after these cleaning steps are applied. Do not actually produce a full cleaned dataset.
 
-Dataset:
-{{dataset}}
-
-Output the cleaned dataset and a report.
+Dataset Sample:
+{{{dataset}}}
 `,
 });
 
