@@ -1,6 +1,5 @@
-import type {NextConfig} from 'next';
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   /* config options here */
   typescript: {
     ignoreBuildErrors: true,
@@ -30,8 +29,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // This allows requests from your development environment to the Next.js server.
-  allowedDevOrigins: ["*.cloudworkstations.dev"],
 };
 
-export default nextConfig;
+module.exports = nextConfig;

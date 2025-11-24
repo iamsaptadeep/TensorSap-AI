@@ -1,0 +1,13 @@
+diff --git a/node_modules/@genkit-ai/next/package.json b/node_modules/@genkit-ai/next/package.json
+index 54c30c8..c8a660a 100644
+--- a/node_modules/@genkit-ai/next/package.json
++++ b/node_modules/@genkit-ai/next/package.json
+@@ -28,6 +28,6 @@
+   "peerDependencies": {
+     "genkit": "workspace:^",
+     "next": "^15.0.0",
+     "zod": "^3.23.8"
+   }
+-}
++}
+\ No newline at end of file
