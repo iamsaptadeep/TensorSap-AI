@@ -3,6 +3,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import type { LucideIcon } from 'lucide-react';
 import React from 'react';
+import { marked } from 'marked';
 
 interface ResultCardProps {
   title: string;
@@ -23,6 +24,11 @@ export function ResultCard({ title, icon: Icon, isLoading, isComplete, content }
       </div>
     );
   }
+  
+  const formattedContent = typeof content === 'string' 
+    ? <div className="prose prose-sm dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: marked(content) }} />
+    : content;
+
 
   return (
     <Card
@@ -45,7 +51,7 @@ export function ResultCard({ title, icon: Icon, isLoading, isComplete, content }
             <Skeleton className="h-4 w-2/3" />
           </div>
         ) : (
-          <div className="text-sm text-foreground/80 leading-relaxed">{content}</div>
+          <div className="text-sm text-foreground/80 leading-relaxed">{formattedContent}</div>
         )}
       </CardContent>
     </Card>

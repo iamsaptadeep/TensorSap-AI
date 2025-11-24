@@ -3,8 +3,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
-import { BarChart, Eye, LineChart, ScatterChart as ScatterChartIcon } from 'lucide-react';
+import { BarChart, Eye } from 'lucide-react';
 import { Bar, BarChart as RechartsBarChart, Line, LineChart as RechartsLineChart, Scatter, ScatterChart as RechartsScatterChart, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts';
+import { marked } from 'marked';
+
 
 interface AnalysisVisualizationCardProps {
   isLoading: boolean;
@@ -108,6 +110,11 @@ export function AnalysisVisualizationCard({
       </div>
     );
   }
+  
+  const formattedResults = analysisResults 
+    ? <div className="prose prose-sm dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: marked(analysisResults) }} /> 
+    : "No analysis results available.";
+
 
   return (
     <Card className={cn('transition-all duration-500 animate-fade-in shadow-md', isLoading && 'border-primary/50')}>
@@ -135,9 +142,9 @@ export function AnalysisVisualizationCard({
                 <Eye className="h-4 w-4" />
                 Analysis Results
               </h3>
-              <p className="text-sm text-foreground/80 leading-relaxed">
-                {analysisResults || "No analysis results available."}
-              </p>
+              <div className="text-sm text-foreground/80 leading-relaxed">
+                {formattedResults}
+              </div>
             </div>
             <div className="space-y-2">
                 <h3 className="font-semibold text-md flex items-center gap-2">
