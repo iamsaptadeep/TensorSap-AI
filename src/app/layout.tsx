@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'DataInsights AI',
+  title: 'TensorSap AI',
   description: 'AI-powered data analysis and visualization',
 };
 
