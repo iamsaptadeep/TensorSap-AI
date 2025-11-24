@@ -22,7 +22,7 @@ const GenerateEdaReportInputSchema = z.object({
 export type GenerateEdaReportInput = z.infer<typeof GenerateEdaReportInputSchema>;
 
 const GenerateEdaReportOutputSchema = z.object({
-  edaReport: z.string().describe('A human-readable EDA report summarizing key statistics, distributions, and correlations in the dataset.'),
+  edaReport: z.string().describe('A human-readable, short, and concise EDA report summarizing key statistics, distributions, and correlations in the dataset.'),
 });
 export type GenerateEdaReportOutput = z.infer<typeof GenerateEdaReportOutputSchema>;
 
@@ -34,7 +34,7 @@ const prompt = ai.definePrompt({
   name: 'generateEdaReportPrompt',
   input: {schema: GenerateEdaReportInputSchema},
   output: {schema: GenerateEdaReportOutputSchema},
-  prompt: `You are an expert data analyst. Your task is to generate an EDA (Exploratory Data Analysis) report based on the provided dataset description and sample.
+  prompt: `You are an expert data analyst. Your task is to generate a short and concise EDA (Exploratory Data Analysis) report based on the provided dataset description and sample.
 
 Dataset Description:
 {{datasetDescription}}
@@ -42,15 +42,13 @@ Dataset Description:
 Dataset Sample:
 {{datasetSample}}
 
-Generate a comprehensive EDA report that includes:
-- Summary statistics for numerical columns (mean, median, standard deviation, min, max, quartiles).
-- Distributions of numerical columns (histograms or density plots).
-- Frequency tables for categorical columns.
-- Correlations between numerical columns (correlation matrix).
-- Identification of missing values and outliers.
-- Potential insights and observations about the data.
+Generate a brief report focusing on the most critical findings:
+- Key summary statistics for numerical columns.
+- A summary of missing values.
+- The most significant correlations found.
+- One or two key observations.
 
-Ensure the report is human-readable and easy to understand for someone with a basic understanding of data analysis.
+Keep the report easy to scan and to the point.
 `,
 });
 

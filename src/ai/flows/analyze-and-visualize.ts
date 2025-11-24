@@ -39,8 +39,8 @@ export type AnalyzeAndVisualizeInput = z.infer<typeof AnalyzeAndVisualizeInputSc
 const AnalyzeAndVisualizeOutputSchema = z.object({
   analysisResults: z
     .string()
-    .describe('A summary of the results of the analysis.'),
-  visualization: z.string().describe('A textual description of the visualization which includes the chart type and a summary of what insights it conveys.'),
+    .describe('A structured summary of the key insights and interpretations from the analysis.'),
+  visualization: z.string().describe('A textual description of the visualization which includes the chart type (scatter plot, bar chart, or line chart) and a summary of what insights it conveys.'),
 });
 
 export type AnalyzeAndVisualizeOutput = z.infer<typeof AnalyzeAndVisualizeOutputSchema>;
@@ -57,25 +57,23 @@ const analyzeAndVisualizePrompt = ai.definePrompt({
   output: {schema: AnalyzeAndVisualizeOutputSchema},
   prompt: `You are an expert data scientist who performs data analysis and visualizes the results.
 
-You have the following information about the dataset and the analysis to perform:
+You have the following information:
+- Dataset Description: {{{datasetDescription}}}
+- Analysis Type: {{{analysisType}}}
+- Preprocessing Steps: {{{preprocessingSteps}}}
 
-Dataset Description: {{{datasetDescription}}}
+Perform the analysis and then provide the output in two parts:
 
-Analysis Type: {{{analysisType}}}
+1.  **Analysis Results**: A structured summary of what can be interpreted from the analysis. Use markdown headings and bullet points for clarity. Structure it with the following sections:
+    - **Key Findings**: What are the most important takeaways?
+    - **Model Performance**: How well did the model perform (if applicable)?
+    - **Insights**: What business or practical insights can be derived from the results?
 
-Preprocessing Steps: {{{preprocessingSteps}}}
-
-Model Explanation: {{{modelExplanation}}}
-
-Visualization Type: {{{visualizationType}}}
-
-Based on this information, perform the analysis and create a visualization.
-
-Return both a summary of the analysis results and a textual description of the visualization.
-
-Analysis Results:
-
-Visualization Description:`, 
+2.  **Visualization**: Based on the analysis type, describe the most appropriate chart.
+    - If 'Regression', use a 'scatter plot'.
+    - If 'Classification', use a 'bar chart' (e.g., for feature importance).
+    - If 'Clustering' or time-series, a 'line chart' might be appropriate.
+    - Your description should state the chart type and what it represents. For example: "A bar chart showing the relative importance of each feature in the classification model."`, 
 });
 
 const analyzeAndVisualizeFlow = ai.defineFlow(

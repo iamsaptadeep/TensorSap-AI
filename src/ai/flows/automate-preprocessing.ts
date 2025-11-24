@@ -27,7 +27,7 @@ const AutomatePreprocessingOutputSchema = z.object({
   preprocessingSteps: z
     .string()
     .describe(
-      'A detailed list of preprocessing steps to be performed, including scaling, encoding, and feature selection techniques, tailored to the selected analysis type.'
+      'A list of preprocessing steps to be performed. No explanations.'
     ),
 });
 export type AutomatePreprocessingOutput = z.infer<typeof AutomatePreprocessingOutputSchema>;
@@ -44,12 +44,10 @@ const prompt = ai.definePrompt({
   output: {schema: AutomatePreprocessingOutputSchema},
   prompt: `You are an expert data scientist specializing in data preprocessing.
 
-You will analyze the dataset description and suggest preprocessing steps tailored to the selected analysis type.
+Based on the dataset description and selected analysis type, provide a bulleted list of the necessary preprocessing steps. Do not provide explanations for the steps, just the step itself.
 
 Dataset Description: {{{datasetDescription}}}
 Analysis Type: {{{analysisType}}}
-
-Provide a detailed list of preprocessing steps, including scaling, encoding, and feature selection techniques.
 `,
 });
 
