@@ -73,7 +73,7 @@ Perform the analysis and then provide the output in two parts. Keep the text sho
     - If 'Regression', use a 'scatter plot'.
     - If 'Classification', use a 'bar chart' (e.g., for feature importance).
     - If 'Clustering', use a 'scatter plot' to show the data clusters.
-    - If time-series, a 'line chart' might be appropriate.
+    - If 'Time Series', use a 'line chart'.
     - Your description should state the chart type and what it represents. For example: "A scatter plot showing the identified customer clusters."`, 
 });
 

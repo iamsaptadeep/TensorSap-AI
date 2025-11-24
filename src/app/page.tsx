@@ -125,12 +125,15 @@ export default function Home() {
       // --- Final Analysis & Visualization ---
       setStepLoading(5, true);
       
-      let vizType = 'line chart'; // Default
+      let vizType = 'bar chart'; // Default
       if (selectedAnalysis === 'Regression' || selectedAnalysis === 'Clustering') {
         vizType = 'scatter plot';
       } else if (selectedAnalysis === 'Classification') {
         vizType = 'bar chart';
+      } else if (selectedAnalysis === 'Time Series') {
+        vizType = 'line chart';
       }
+
 
       const finalResult = await analyzeAndVisualize({ 
         datasetDescription: "User uploaded CSV",
