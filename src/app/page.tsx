@@ -71,30 +71,21 @@ export default function Home() {
 
       // --- Data Cleaning ---
       setStepLoading(1, true);
-      // const cleaningResult = await handleMissingData({ dataset: content });
-      await new Promise(res => setTimeout(res, 1500)); // mock delay
-      const cleaningResult = { report: "Handled 27 missing values in 'age' column using median imputation. Removed 3 duplicate rows." };
+      const cleaningResult = await handleMissingData({ dataset: content });
       setResults((prev) => ({ ...prev, cleaning: cleaningResult.report }));
       setStepLoading(1, false);
       setCurrentStep(2);
 
       // --- EDA ---
       setStepLoading(2, true);
-      // const edaResult = await generateEdaReport({ datasetDescription: "User uploaded CSV", datasetSample: content.slice(0, 500) });
-      await new Promise(res => setTimeout(res, 2000)); // mock delay
-      const edaResult = { edaReport: "Dataset contains 10 columns and 1054 rows. Key columns include 'age', 'income', and 'purchase_status'. 'income' is right-skewed. Strong positive correlation between 'age' and 'income'." };
+      const edaResult = await generateEdaReport({ datasetDescription: "User uploaded CSV", datasetSample: content.slice(0, 500) });
       setResults((prev) => ({ ...prev, eda: edaResult.edaReport }));
       setStepLoading(2, false);
       setCurrentStep(3);
 
       // --- Analysis Suggestions ---
       setStepLoading(3, true);
-      // const suggestionsResult = await suggestAnalysisTypes({ datasetDescription: "User uploaded CSV" });
-      await new Promise(res => setTimeout(res, 2000)); // mock delay
-      const suggestionsResult = {
-        suggestedAnalysisTypes: ["Regression", "Classification", "Clustering"],
-        reasoning: "Regression can predict 'income' from 'age'. Classification can predict 'purchase_status'. Clustering can find customer segments."
-      };
+      const suggestionsResult = await suggestAnalysisTypes({ datasetDescription: "User uploaded CSV" });
       const suggestions = suggestionsResult.suggestedAnalysisTypes.map(type => ({ type, reasoning: suggestionsResult.reasoning }));
       setResults((prev) => ({ ...prev, suggestions }));
       setStepLoading(3, false);
@@ -126,21 +117,21 @@ export default function Home() {
     try {
       // --- Preprocessing ---
       setStepLoading(4, true);
-      // const preprocessingResult = await automatePreprocessing({ datasetDescription: "User uploaded CSV", analysisType: selectedAnalysis });
-      await new Promise(res => setTimeout(res, 1500)); // mock delay
-      const preprocessingResult = { preprocessingSteps: `For ${selectedAnalysis}: Standard scaling applied to numerical features. One-hot encoding applied to categorical features.`};
+      const preprocessingResult = await automatePreprocessing({ datasetDescription: "User uploaded CSV", analysisType: selectedAnalysis });
       setResults((prev) => ({ ...prev, preprocessing: preprocessingResult.preprocessingSteps }));
       setStepLoading(4, false);
       setCurrentStep(5);
 
       // --- Final Analysis & Visualization ---
       setStepLoading(5, true);
-      // const finalResult = await analyzeAndVisualize({ ... });
-      await new Promise(res => setTimeout(res, 2500)); // mock delay
-      const finalResult = {
-        analysisResults: `The ${selectedAnalysis} model achieved an accuracy of 92%. Key predictors were 'income' and 'age'.`,
-        visualization: "A bar chart showing feature importance. 'Income' is the most important feature, followed by 'age'."
-      };
+      const vizType = selectedAnalysis === 'Regression' ? 'scatter plot' : selectedAnalysis === 'Classification' ? 'bar chart' : 'line chart';
+      const finalResult = await analyzeAndVisualize({ 
+        datasetDescription: "User uploaded CSV",
+        analysisType: selectedAnalysis,
+        preprocessingSteps: results.preprocessing || '',
+        modelExplanation: `This is a ${selectedAnalysis} model.`,
+        visualizationType: vizType
+       });
       setResults((prev) => ({ ...prev, analysis: finalResult }));
       setStepLoading(5, false);
 
