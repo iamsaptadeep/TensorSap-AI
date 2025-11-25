@@ -75,7 +75,7 @@ Gemini handles:
 | Backend | Genkit AI runtime |
 | AI Models | Google Gemini Pro |
 | UI Library | ShadCN + Lucide Icons |
-| Deployment | Local (can be deployed to Firebase Hosting / Vercel) |
+| Deployment | Local (can be deployed to Vercel) |
 | File Handling | Browser File API |
 
 ---
