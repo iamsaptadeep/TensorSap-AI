@@ -1,4 +1,4 @@
-# 📊 TensorSap AI – Smart Data Analysis Agent  
+# TensorSap AI – Smart Data Analysis Agent  
 **Upload → Clean → EDA → Model Suggestions → Preprocessing → Analysis & Visualization**
 
 TensorSap AI is an end-to-end intelligent data analysis tool built with **Next.js, TypeScript, Genkit, and Google Gemini Pro models**.  
@@ -6,7 +6,7 @@ It processes CSV/Excel datasets, performs automated cleaning, generates EDA insi
 
 ---
 
-## 🚀 Features
+## Features
 
 ### ✅ **1. Dataset Upload**
 - Supports CSV/Excel files  
